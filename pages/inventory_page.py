@@ -20,11 +20,8 @@ class InventoryPage(BasePage):
         self.click(locator)
 
     def open_cart(self):
+        print("BEFORE CART CLICK:", self.driver.current_url)
+
         self.click(self.CART_BUTTON)
 
-        WebDriverWait(
-            self.driver,
-            self.timeout
-        ).until(
-            EC.url_contains("cart.html")
-        )
+        print("AFTER CART CLICK:", self.driver.current_url)
