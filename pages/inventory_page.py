@@ -1,5 +1,4 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from pages.base_page import BasePage
@@ -7,7 +6,7 @@ from pages.base_page import BasePage
 
 class InventoryPage(BasePage):
 
-    CART_BUTTON = (By.CLASS_NAME, "shopping_cart_link")
+    CART_BUTTON = (By.CSS_SELECTOR, "a.shopping_cart_link")
 
     def add_product(self, product_name):
         product_id = product_name.lower().replace(" ", "-")
@@ -20,8 +19,11 @@ class InventoryPage(BasePage):
         self.click(locator)
 
     def open_cart(self):
-        print("BEFORE CART CLICK:", self.driver.current_url)
+        cart = self.wait.until(
+            EC.element_to_be_clickable(self.CART_BUTTON)
+        )
 
-        self.click(self.CART_BUTTON)
-
-        print("AFTER CART CLICK:", self.driver.current_url)
+        self.driver.execute_script(
+            "arguments[0].click();",
+            cart
+        )
