@@ -7,6 +7,7 @@ class DriverFactory:
 
     def __init__(self, config):
         self.config = config
+
     def get_driver(self):
 
         browser = self.config.fetch("BROWSER").lower()
@@ -29,6 +30,7 @@ class DriverFactory:
             options.add_argument("--disable-dev-shm-usage")
 
             driver = webdriver.Chrome(options=options)
+
         elif browser == "firefox":
 
             options = webdriver.FirefoxOptions()
@@ -48,14 +50,14 @@ class DriverFactory:
 
         return driver
     
-if __name__ == "__main__":
+# if __name__ == "__main__":
 
-    config = ConfigFactory()
+#     config = ConfigFactory()
 
-    driver = DriverFactory(config).get_driver()
+#     driver = DriverFactory(config).get_driver()
 
-    driver.get(config.fetch("BASE_URL"))
+#     driver.get(config.fetch("BASE_URL"))
 
-    input("Press Enter to close the browser...")
+#     input("Press Enter to close the browser...")
 
-    driver.quit()
+#     driver.quit()

@@ -1,5 +1,4 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
 
 from pages.base_page import BasePage
 
@@ -15,6 +14,9 @@ class CheckoutPage(BasePage):
 
     COMPLETE_HEADER = (By.CLASS_NAME, "complete-header")
 
+    def __init__(self, driver, timeout):
+        super().__init__(driver, timeout)
+
     def enter_customer_information(
         self,
         first_name,
@@ -26,32 +28,10 @@ class CheckoutPage(BasePage):
         self.type_text(self.POSTAL_CODE, postal_code)
 
     def click_continue(self):
-        button = self.wait.until(
-            EC.element_to_be_clickable(self.CONTINUE_BUTTON)
-        )
-
-        self.driver.execute_script(
-            "arguments[0].click();",
-            button
-        )
-
-        self.wait.until(
-            EC.url_contains("checkout-step-two")
-        )
+        self.click(self.CONTINUE_BUTTON)
 
     def click_finish(self):
-        button = self.wait.until(
-            EC.element_to_be_clickable(self.FINISH_BUTTON)
-        )
-
-        self.driver.execute_script(
-            "arguments[0].click();",
-            button
-        )
-
-        self.wait.until(
-            EC.url_contains("checkout-complete")
-        )
+        self.click(self.FINISH_BUTTON)
 
     def get_confirmation_message(self):
         return self.get_text(self.COMPLETE_HEADER)

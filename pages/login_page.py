@@ -4,6 +4,7 @@ from pages.base_page import BasePage
 
 
 class LoginPage(BasePage):
+    
 
     USERNAME = (By.ID, "user-name")
     PASSWORD = (By.ID, "password")

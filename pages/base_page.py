@@ -7,16 +7,22 @@ class BasePage:
     def __init__(self, driver, timeout):
         self.driver = driver
         self.timeout = timeout
-        self.wait = WebDriverWait(driver, timeout)
 
     def click(self, locator):
-        element = self.wait.until(
+        element = WebDriverWait(
+            self.driver,
+            self.timeout
+        ).until(
             EC.element_to_be_clickable(locator)
         )
+
         element.click()
 
     def type_text(self, locator, text):
-        element = self.wait.until(
+        element = WebDriverWait(
+            self.driver,
+            self.timeout
+        ).until(
             EC.visibility_of_element_located(locator)
         )
 
@@ -24,7 +30,10 @@ class BasePage:
         element.send_keys(text)
 
     def get_text(self, locator):
-        element = self.wait.until(
+        element = WebDriverWait(
+            self.driver,
+            self.timeout
+        ).until(
             EC.visibility_of_element_located(locator)
         )
 

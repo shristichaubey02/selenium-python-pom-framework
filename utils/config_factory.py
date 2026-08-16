@@ -1,8 +1,11 @@
 from pathlib import Path
 import os
+
 from jproperties import Properties
 
+
 class ConfigFactory:
+
     def __init__(self, file_path="resources/config.properties"):
         self.path = Path(file_path)
 
@@ -10,6 +13,7 @@ class ConfigFactory:
             raise FileNotFoundError(
                 f"Configuration file not found: {self.path}"
             )
+
         self.configs = Properties()
 
         with self.path.open("rb") as config_file:
@@ -32,7 +36,6 @@ class ConfigFactory:
             )
 
         return item[0]
-    
 # if __name__ == "__main__":
 
 #     config = ConfigFactory()
