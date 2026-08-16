@@ -1,4 +1,6 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 from pages.base_page import BasePage
 
@@ -30,8 +32,22 @@ class CheckoutPage(BasePage):
     def click_continue(self):
         self.click(self.CONTINUE_BUTTON)
 
+        WebDriverWait(
+            self.driver,
+            self.timeout
+        ).until(
+            EC.element_to_be_clickable(self.FINISH_BUTTON)
+        )
+
     def click_finish(self):
         self.click(self.FINISH_BUTTON)
+
+        WebDriverWait(
+            self.driver,
+            self.timeout
+        ).until(
+            EC.visibility_of_element_located(self.COMPLETE_HEADER)
+        )
 
     def get_confirmation_message(self):
         return self.get_text(self.COMPLETE_HEADER)

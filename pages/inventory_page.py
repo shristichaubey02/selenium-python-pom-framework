@@ -25,8 +25,5 @@ class InventoryPage(BasePage):
             self.driver,
             self.timeout
         ).until(
-            lambda driver: driver.find_element(
-                By.ID,
-                "cart_contents_container"
-            )
+            lambda driver: "cart.html" in driver.current_url
         )
